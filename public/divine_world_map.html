@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Divine World — Dominions of the Greek Gods</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: #0A0908;
+    color: #e8e0d0;
+    min-height: 100vh;
+  }
+  header {
+    text-align: center;
+    padding: 24px 20px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  header h1 {
+    font-size: 26px;
+    font-weight: normal;
+    letter-spacing: 0.06em;
+    color: #f0e6c8;
+    margin-bottom: 4px;
+  }
+  header p {
+    font-size: 13px;
+    color: rgba(240,230,200,0.55);
+    font-style: italic;
+  }
+  #map-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 12px 0;
+  }
+  #map svg { display: block; width: 100%; border-radius: 8px; }
+  .country { cursor: pointer; transition: opacity 0.15s; }
+  .country:hover { opacity: 0.72; stroke-width: 1.2 !important; }
+
+  /* Tooltip */
+  #tooltip {
+    position: fixed;
+    background: #12122a;
+    border: 1px solid rgba(200,180,120,0.4);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #e8e0d0;
+    pointer-events: none;
+    max-width: 240px;
+    opacity: 0;
+    transition: opacity 0.1s;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  #tooltip.show { opacity: 1; }
+  #tooltip .tt-god { font-size: 16px; font-weight: bold; color: #f0c060; margin-bottom: 2px; }
+  #tooltip .tt-domain { font-size: 10px; color: rgba(240,200,100,0.55); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; }
+  #tooltip .tt-country { font-size: 13px; font-weight: bold; color: #e8e0d0; margin-bottom: 4px; }
+  #tooltip .tt-why { font-size: 12px; color: rgba(232,224,208,0.78); line-height: 1.5; }
+
+  /* Controls */
+  #controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  #controls span { font-size: 12px; color: rgba(240,230,200,0.5); margin-right: 4px; font-family: Georgia, serif; }
+  .fbtn {
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(200,180,120,0.3);
+    background: transparent;
+    color: rgba(240,230,200,0.65);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: Georgia, serif;
+  }
+  .fbtn:hover, .fbtn.active {
+    background: rgba(200,160,60,0.25);
+    border-color: rgba(200,160,60,0.7);
+    color: #f0c060;
+  }
+
+  /* Info bar */
+  #info-bar {
+    text-align: center;
+    font-size: 12px;
+    color: rgba(240,230,200,0.45);
+    padding: 6px 12px;
+    font-style: italic;
+    min-height: 24px;
+  }
+
+  /* Legend */
+  #legend-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 12px 24px;
+  }
+  #legend-wrap h3 {
+    font-size: 13px;
+    font-weight: normal;
+    color: rgba(240,200,100,0.6);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  #legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 5px 14px;
+  }
+  .leg {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(232,224,208,0.7);
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.12s;
+    font-family: Georgia, serif;
+  }
+  .leg:hover { background: rgba(255,255,255,0.06); color: #f0e0b0; }
+  .sw { width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.15); }
+  .leg-name { font-weight: bold; color: #f0d080; margin-right: 2px; }
+
+  /* Mt Olympus marker label */
+  .olympus-label { font-size: 11px; fill: #f0c060; font-family: Georgia, serif; }
+
+  footer {
+    text-align: center;
+    font-size: 11px;
+    color: rgba(240,230,200,0.25);
+    padding: 12px;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>&#9670; Divine World — Dominions of the Greek Gods &#9670;</h1>
+  <p>Every nation on earth claimed by the gods of Olympus &mdash; matched to their powers and domains</p>
+</header>
+
+<div id="controls">
+  <span>Filter:</span>
+  <button class="fbtn active" onclick="setFilter('all',this)">All gods</button>
+  <button class="fbtn" onclick="setFilter('olympian',this)">Olympians</button>
+  <button class="fbtn" onclick="setFilter('chthonic',this)">Chthonic</button>
+  <button class="fbtn" onclick="setFilter('minor',this)">Minor gods</button>
+  <button class="fbtn" onclick="setFilter('unclaimed',this)">Unclaimed</button>
+</div>
+
+<div id="map-wrap">
+  <div id="map"></div>
+</div>
+
+<div id="info-bar">Hover over any country to see its divine ruler.</div>
+<div id="tooltip"></div>
+
+<div id="legend-wrap">
+  <h3>Divine Dominions</h3>
+  <div id="legend"></div>
+</div>
+
+<footer>Created for novel worldbuilding &mdash; Greek mythology overlaid on the modern world &mdash; Click any country to highlight its god's full domain</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script>
+const GODS = {
+  zeus:       { name:'Zeus',        color:'#8878e8', type:'olympian',  domain:'King of Gods — Sky, Thunder & Law',         symbol:'⚡' },
+  hera:       { name:'Hera',        color:'#e060a0', type:'olympian',  domain:'Queen — Marriage, Royalty & Civilization',  symbol:'👑' },
+  athena:     { name:'Athena',      color:'#e8a020', type:'olympian',  domain:'Wisdom, War Strategy & Craft',              symbol:'🦉' },
+  poseidon:   { name:'Poseidon',    color:'#3090e8', type:'olympian',  domain:'Sea, Earthquakes & Island Nations',         symbol:'🔱' },
+  ares:       { name:'Ares',        color:'#e84040', type:'olympian',  domain:'War, Bloodshed & Conflict',                 symbol:'⚔' },
+  apollo:     { name:'Apollo',      color:'#f8c840', type:'olympian',  domain:'Sun, Music, Arts & Prophecy',              symbol:'☀' },
+  artemis:    { name:'Artemis',     color:'#20b878', type:'olympian',  domain:'Hunt, Moon & Great Wilderness',            symbol:'🌙' },
+  demeter:    { name:'Demeter',     color:'#80c840', type:'olympian',  domain:'Harvest, Grain & the Seasons',             symbol:'🌾' },
+  hephaestus: { name:'Hephaestus', color:'#e86030', type:'olympian',  domain:'Fire, Forge & Volcanoes',                  symbol:'🔥' },
+  aphrodite:  { name:'Aphrodite',   color:'#f080c0', type:'olympian',  domain:'Love, Beauty & Desire',                    symbol:'♥' },
+  hermes:     { name:'Hermes',      color:'#40c8a0', type:'olympian',  domain:'Commerce, Travel, Thieves & Messages',     symbol:'☿' },
+  dionysus:   { name:'Dionysus',    color:'#a080f0', type:'olympian',  domain:'Wine, Ecstasy, Theater & Festivals',       symbol:'🍇' },
+  hades:      { name:'Hades',       color:'#484845', type:'chthonic',  domain:'God of the Underworld & the Dead',        symbol:'💀' },
+  persephone: { name:'Persephone',  color:'#30b898', type:'chthonic',  domain:'Queen of Underworld & Goddess of Spring',  symbol:'🌸' },
+  hecate:     { name:'Hecate',      color:'#807870', type:'chthonic',  domain:'Magic, Crossroads & the Night',           symbol:'🌑' },
+  helios:     { name:'Helios',      color:'#f87010', type:'minor',     domain:'Solar Titan — Raw Sunlight & the Sun Chariot', symbol:'🌞' },
+  selene:     { name:'Selene',      color:'#90b8f0', type:'minor',     domain:'Moon Goddess & the Tides',                symbol:'🌕' },
+  tyche:      { name:'Tyche',       color:'#f0d860', type:'minor',     domain:'Goddess of Fortune, Luck & Chance',        symbol:'🎲' },
+  aeolus:     { name:'Aeolus',      color:'#70d8c0', type:'minor',     domain:'Keeper of the Winds',                     symbol:'💨' },
+  hypnos:     { name:'Hypnos',      color:'#b0a0f0', type:'minor',     domain:'God of Sleep & Dreams',                   symbol:'💤' },
+  none:       { name:'Unclaimed',   color:'#4a4a4a', type:'unclaimed', domain:'No divine ruler assigned',                 symbol:'' }
+};
+
+const WHY = {
+  zeus:'Vast open skies and endless plains — perfect domain for the sky-king. The largest territory belongs to the ruler of Olympus.',
+  hera:'Home of Europe\'s great monarchies and royal institutions. France\'s grand palaces and Germany\'s imperial legacy are her earthly courts.',
+  athena:'Birthplace of democracy, philosophy, and Western civilization. The Parthenon, the Colosseum, and the courts of justice are her temples.',
+  poseidon:'An island nation or seismically active land — entirely at the mercy of sea and earthquake. Poseidon\'s footstep shakes the ground here.',
+  ares:'One of humanity\'s most ancient and persistent battlegrounds. Ares broods over the conflict-scarred deserts and valleys here.',
+  apollo:'The land of the midnight sun — where in midsummer Apollo never fully sets. Great traditions of music, saga, and light.',
+  artemis:'The world\'s greatest wilderness — boreal forest, tundra, and untamed hunting grounds where the moon runs free.',
+  demeter:'The breadbasket of the modern world. Fields of grain stretch horizon to horizon — every harvest is Demeter\'s blessing.',
+  hephaestus:'Sits directly atop the Ring of Fire or a volcanic hotspot. The forge-god\'s workshop vents through every eruption here.',
+  aphrodite:'Beautiful islands risen from the sea, or the most exquisite shores on earth. Aphrodite was born from sea-foam — she claims beauty.',
+  hermes:'An ancient crossroads of world trade, communication, and commerce. The golden caduceus has always flown here.',
+  dionysus:'Land of carnival, vine, wild rainforest, and ecstatic festival. Dionysus runs through the jungle and raises his cup to the sky.',
+  hades:'Frozen, dark, or cut off from the living world — the closest territory to the realm of the dead.',
+  persephone:'The great seasonal reversal — summer when the north has winter, spring when the north has autumn. Persephone walks between worlds.',
+  hecate:'Ancient land of mystery, crossroads cultures, and the darkest night skies on earth — birthplace of the oldest magic.',
+  helios:'The sun reigns supreme here. To survive is to submit to Helios. The ancient people built monuments to reach his chariot path.',
+  selene:'Six months of polar night — the moon rules unchallenged. The aurora shimmers in her silver light.',
+  tyche:'Built on fortune, chance, and the turn of fate. Tyche\'s wheel spins here more visibly than anywhere else on earth.',
+  aeolus:'Winds travel unobstructed for a thousand miles. The great steppe is Aeolus\'s open workshop for the world\'s weather.',
+  hypnos:'Remote, quiet, lulled by the endless rhythm of waves — the most isolated and dreamlike islands on earth.',
+  none:'This territory has not yet been claimed by any god. Perhaps a new deity will arise to rule it.'
+};
+
+const ASSIGN = {
+  'Russia':'zeus','Kazakhstan':'zeus','Ukraine':'zeus','Belarus':'zeus',
+  'Poland':'zeus','Romania':'zeus','Bulgaria':'zeus','Serbia':'zeus',
+  'Croatia':'zeus','Slovakia':'zeus','Hungary':'zeus','Moldova':'zeus',
+  'Czechia':'zeus','Czech Republic':'zeus','Lithuania':'zeus',
+  'Latvia':'zeus','Estonia':'zeus','Austria':'zeus','China':'zeus',
+  'Uzbekistan':'zeus','Turkmenistan':'zeus','Kyrgyzstan':'zeus',
+  'Tajikistan':'zeus','Azerbaijan':'zeus','Armenia':'zeus','Georgia':'zeus',
+  'Germany':'hera','France':'hera','Belgium':'hera',
+  'Netherlands':'hera','Luxembourg':'hera','Switzerland':'hera',
+  'Liechtenstein':'hera',
+  'Greece':'athena','Italy':'athena','Spain':'athena',
+  'Portugal':'athena','Cyprus':'athena','Malta':'athena',
+  'Albania':'athena','North Macedonia':'athena','Montenegro':'athena',
+  'Slovenia':'athena','Bosnia and Herz.':'athena','Turkey':'athena',
+  'Bosnia and Herzegovina':'athena',
+  'United Kingdom':'poseidon','Ireland':'poseidon','Japan':'poseidon',
+  'Philippines':'poseidon','New Zealand':'poseidon','Taiwan':'poseidon',
+  'South Korea':'poseidon','Timor-Leste':'poseidon','Palau':'poseidon',
+  'Fiji':'poseidon','Maldives':'aphrodite',
+  'Iceland':'hephaestus','Indonesia':'hephaestus',
+  'Papua New Guinea':'hephaestus','Vanuatu':'hephaestus',
+  'Solomon Islands':'hephaestus',
+  'Iraq':'ares','Syria':'ares','Yemen':'ares','Libya':'ares',
+  'Afghanistan':'ares','Sudan':'ares','South Sudan':'ares',
+  'Somalia':'ares','Central African Republic':'ares',
+  'Saudi Arabia':'ares','Iran':'ares','Pakistan':'ares',
+  'Israel':'ares','Jordan':'ares','Kuwait':'ares','Oman':'ares',
+  'Eritrea':'ares','Djibouti':'ares',
+  'Norway':'apollo','Sweden':'apollo','Denmark':'apollo','Finland':'apollo',
+  'Canada':'artemis','Greenland':'artemis','Costa Rica':'artemis',
+  'United States of America':'demeter','India':'demeter',
+  'Bangladesh':'demeter','Sri Lanka':'demeter','Nepal':'demeter','Bhutan':'demeter',
+  'Cuba':'aphrodite','Haiti':'aphrodite','Dominican Rep.':'aphrodite',
+  'Jamaica':'aphrodite','Trinidad and Tobago':'aphrodite',
+  'Bahamas':'aphrodite','Barbados':'aphrodite','Lebanon':'aphrodite',
+  'Dominican Republic':'aphrodite',
+  'Thailand':'hermes','Vietnam':'hermes','Malaysia':'hermes',
+  'Singapore':'hermes','Cambodia':'hermes','Laos':'hermes',
+  'Myanmar':'hermes','Panama':'hermes',
+  'Brazil':'dionysus','Argentina':'dionysus','Colombia':'dionysus',
+  'Peru':'dionysus','Venezuela':'dionysus','Chile':'dionysus',
+  'Ecuador':'dionysus','Bolivia':'dionysus','Paraguay':'dionysus',
+  'Uruguay':'dionysus','Guyana':'dionysus','Suriname':'dionysus',
+  'Mexico':'dionysus','Guatemala':'dionysus','Honduras':'dionysus',
+  'El Salvador':'dionysus','Nicaragua':'dionysus',
+  'Egypt':'helios','Algeria':'helios','Morocco':'helios',
+  'Tunisia':'helios','Niger':'helios','Mali':'helios',
+  'Mauritania':'helios','Chad':'helios','W. Sahara':'helios',
+  'Nigeria':'hecate','Ethiopia':'hecate','Kenya':'hecate',
+  'Tanzania':'hecate','Uganda':'hecate','Ghana':'hecate',
+  'Cameroon':'hecate','Angola':'hecate','Mozambique':'hecate',
+  'Zimbabwe':'hecate','Zambia':'hecate','Malawi':'hecate',
+  'Madagascar':'hecate','Senegal':'hecate',"Côte d'Ivoire":'hecate',
+  'Ivory Coast':'hecate','Guinea':'hecate',
+  'Dem. Rep. Congo':'hecate','Congo':'hecate',
+  'Rwanda':'hecate','Burundi':'hecate','South Africa':'persephone',
+  'Lesotho':'persephone','Eswatini':'persephone',
+  'Australia':'persephone',
+  'North Korea':'hades',
+  'Namibia':'helios','Botswana':'helios',
+  'Qatar':'tyche','United Arab Emirates':'tyche','Bahrain':'tyche',
+  'Mongolia':'aeolus',
+  'Tonga':'hypnos','Samoa':'hypnos','Kiribati':'hypnos',
+  'Micronesia':'hypnos',
+};
+
+function getGodKey(name) {
+  return ASSIGN[name] || 'none';
+}
+
+const tip = document.getElementById('tooltip');
+const infoBar = document.getElementById('info-bar');
+
+const W = 960, H = 500;
+const svg = d3.select('#map').append('svg')
+  .attr('viewBox', `0 0 ${W} ${H}`);
+
+svg.append('rect').attr('width',W).attr('height',H)
+  .attr('fill','#0d1b3e').attr('rx',8);
+
+const proj = d3.geoNaturalEarth1().scale(153).translate([W/2, H/2+15]);
+const path = d3.geoPath(proj);
+
+d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(world => {
+  const features = topojson.feature(world, world.objects.countries).features;
+
+  svg.selectAll('.country')
+    .data(features)
+    .join('path')
+    .attr('class','country')
+    .attr('d', path)
+    .attr('fill', d => {
+      const n = d.properties && d.properties.name ? d.properties.name : '';
+      const gk = getGodKey(n);
+      return GODS[gk].color;
+    })
+    .attr('stroke','rgba(0,0,0,0.4)')
+    .attr('stroke-width', 0.4)
+    .on('mousemove', function(event, d) {
+      const name = d.properties && d.properties.name ? d.properties.name : '';
+      const gk = getGodKey(name);
+      const g = GODS[gk];
+      tip.innerHTML = `
+        <div class="tt-god">${g.symbol ? g.symbol+' ' : ''}${g.name}</div>
+        <div class="tt-domain">${g.domain}</div>
+        <div class="tt-country">${name || 'Unknown territory'}</div>
+        <div class="tt-why">${WHY[gk]}</div>
+      `;
+      tip.classList.add('show');
+      infoBar.textContent = `${name} — ruled by ${g.name} (${g.domain})`;
+      let x = event.clientX + 14, y = event.clientY - 14;
+      if (x + 250 > window.innerWidth) x = event.clientX - 260;
+      if (y < 10) y = 10;
+      tip.style.left = x + 'px';
+      tip.style.top = y + 'px';
+    })
+    .on('mouseleave', function() {
+      tip.classList.remove('show');
+      infoBar.textContent = 'Hover over any country to see its divine ruler.';
+    })
+    .on('click', function(event, d) {
+      const name = d.properties && d.properties.name ? d.properties.name : '';
+      const gk = getGodKey(name);
+      svg.selectAll('.country').attr('opacity', f => {
+        const fn = f.properties && f.properties.name ? f.properties.name : '';
+        return getGodKey(fn) === gk ? 1 : 0.1;
+      });
+      infoBar.textContent = `Showing all territories of ${GODS[gk].name} — click anywhere else to reset`;
+    });
+
+  svg.append('path')
+    .datum(topojson.mesh(world, world.objects.countries, (a,b)=>a!==b))
+    .attr('fill','none')
+    .attr('stroke','rgba(255,255,255,0.1)')
+    .attr('stroke-width',0.3)
+    .attr('d',path);
+
+  svg.on('click', function(event) {
+    if (!event.target.classList.contains('country')) {
+      svg.selectAll('.country').attr('opacity',1);
+      infoBar.textContent = 'Hover over any country to see its divine ruler.';
+    }
+  });
+
+  const olympusCoords = proj([22.35, 40.09]);
+  if (olympusCoords) {
+    const ox = olympusCoords[0], oy = olympusCoords[1];
+    svg.append('polygon')
+      .attr('points', `${ox},${oy-10} ${ox-6},${oy+4} ${ox+6},${oy+4}`)
+      .attr('fill','#f0c060').attr('stroke','#fff').attr('stroke-width',0.8);
+    svg.append('text').attr('x',ox+9).attr('y',oy-2)
+      .attr('class','olympus-label').text('Mt. Olympus');
+  }
+
+  buildLegend(svg, features);
+});
+
+function buildLegend(svg, features) {
+  const leg = document.getElementById('legend');
+  leg.innerHTML = '';
+  Object.entries(GODS).forEach(([key, g]) => {
+    if (key === 'none') return;
+    const el = document.createElement('div');
+    el.className = 'leg';
+    el.innerHTML = `<div class="sw" style="background:${g.color}"></div><span class="leg-name">${g.name}</span><span style="opacity:0.6;font-size:11px">— ${g.domain.split('—')[0].trim()}</span>`;
+    el.title = g.domain;
+    el.onclick = () => {
+      svg.selectAll('.country').attr('opacity', d => {
+        const n = d.properties && d.properties.name ? d.properties.name : '';
+        return getGodKey(n) === key ? 1 : 0.07;
+      });
+      document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+      infoBar.textContent = `Showing all territories of ${g.name} — click the map background to reset`;
+    };
+    leg.appendChild(el);
+  });
+}
+
+function setFilter(type, btn) {
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  d3.selectAll('.country').attr('opacity', function() {
+    const gk = this.getAttribute('data-god') || 'none';
+    if (type === 'all') return 1;
+    return GODS[gk] && GODS[gk].type === type ? 1 : 0.08;
+  });
+  d3.selectAll('.country').each(function(d) {
+    const n = d.properties && d.properties.name ? d.properties.name : '';
+    const gk = getGodKey(n);
+    d3.select(this).attr('data-god', gk);
+  });
+  d3.selectAll('.country').attr('opacity', function(d) {
+    const n = d.properties && d.properties.name ? d.properties.name : '';
+    const gk = getGodKey(n);
+    if (type === 'all') return 1;
+    return GODS[gk] && GODS[gk].type === type ? 1 : 0.08;
+  });
+}
+</script>
+</body>
+</html>

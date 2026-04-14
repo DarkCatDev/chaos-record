@@ -1,0 +1,70 @@
+.section {
+  margin-bottom: 72px;
+}
+
+.sectionTitle {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--warm-soft);
+  margin-bottom: 28px;
+}
+
+.featuredCard {
+  padding: 36px;
+  border: 1px solid var(--border);
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.featuredCategory {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--warm-soft);
+}
+
+.featuredTag {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 3px 12px;
+  border: 1px solid var(--border);
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--blush-light);
+}
+
+.featuredTitle {
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: var(--off-white);
+  line-height: 1.3;
+}
+
+.featuredExcerpt {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--warm-mid);
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.featuredLink {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--blush);
+  margin-top: 8px;
+  transition: opacity 0.2s ease;
+}
+
+.featuredLink:hover {
+  opacity: 0.7;
+}

@@ -1,0 +1,52 @@
+.section {
+  margin-bottom: 32px;
+}
+
+.sectionTitle {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--warm-soft);
+  margin-bottom: 28px;
+}
+
+.factsBox {
+  padding: 32px 36px;
+  border: 1px solid var(--border);
+  background: var(--cream);
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.factText {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--blush);
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.factDots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  background: var(--warm-soft);
+  transition: background 0.3s ease;
+}
+
+.dotActive {
+  background: var(--blush);
+}

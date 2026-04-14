@@ -1,0 +1,68 @@
+[
+  {
+    "id": "001",
+    "name": "Medeana Asperse",
+    "subtitle": "Daughter of Athena",
+    "gender": "Female",
+    "origin": "Mt. Olympus, Greece",
+    "weapon": "Glaukopis Spear / Aegis Shield",
+    "tags": ["Demigod", "Unpredictable", "Wild Card" ],
+    "physicalAppearance": {
+      "age":               { "value": "14",        "detail": "Data not available. Mysterious Force is preventing mortal eyes to see." },
+      "heightAndBuild":    { "value": "149.8 cm · Petite",  "detail": "light-boned, lean build optimized for agility, precision movement, and low-profile presence." },
+      "skinTone":          { "value": "❄️ Pale",    "detail": "Fair skin with a light, even tone and a smooth, luminous appearance, often reflecting subtle warmth or cool undertones depending on lighting." },
+      "eyeColor":          { "value": "🟢 Jade",    "detail": "Pale grey irises with a faint silver ring — rare genetic trait." },
+      "hairColor":         { "value": "⚫ Dark Brown · long", "detail": "Data not available. Mysterious Force is preventing mortal eyes to see." },
+      "distinctiveFeatures": { "value": "🔥 Scorched hand", "detail": "Scorched right hand - caused by retrieving a photo on burning trashcan." },
+      "healthCondition":   { "value": "❓ Unknown",  "detail": "Data not available. Mysterious Force is preventing mortal eyes to see." }
+    },
+    "personality": {
+      "coreType":          { "value": "INFP",        "detail": "Mediator type. Introspective, idealistic, and value-driven, guided by deep personal beliefs and emotions in decision-making." },
+      "coreTraits":        { "value": "Idealist · Simple · Loyal", "detail": "Values authenticity and meaningful connections. Seeks to live by her principles, even when it's challenging." },
+      "moralValues":       { "value": "⚖️ Pragmatic", "detail": "Believes outcomes justify methods within defined operational parameters. No ideological allegiance." },
+      "desires":           { "value": "👨‍👩‍👧‍👦 Family",  "detail": "Seeks to protect and provide for her loved ones, even at great personal cost." },
+      "weaknesses":        { "value": "Complexity", "detail": "Struggles with complex decisions and situations that require nuanced judgment." },
+      "temperament":       { "value": "Sanguine",  "detail": "Enthusiastic and sociable, often displaying a positive outlook and energy." },
+      "socialStyle":       { "value": "Informal",    "detail": "Prefers casual interactions and open communication." }
+    },
+    "backgroundStory": " Data not available. Mysterious Force is preventing mortal eyes to see.",
+    "characterPsychology": " Data not available. Mysterious Force is preventing mortal eyes to see.",
+    "additionalInfo": " Data not available. Mysterious Force is preventing mortal eyes to see.",
+    "imageSrc": "/charImg/Dea.png",
+    "thumbnailSrc": "/charImg/Dea.png"
+  },
+
+  {
+      "id": "002",
+      "name": "Arpie",
+      "subtitle": "The Dark Cat",
+      "gender": "Male",
+      "origin": "Antipolo City, Rizal",
+      "weapon": "Computer / Programming Skills",
+      "tags": ["Web Developer", "Game Developer", "Author"],
+      "physicalAppearance": {
+        "age": { "value": "26", "detail": "NNTK" },
+        "heightAndBuild": { "value": "NNTK", "detail": "NNTK" },
+        "skinTone": { "value": "NNTK", "detail": "NNTK" },
+        "eyeColor": { "value": "NNTK", "detail": "NNTK" },
+        "hairColor": { "value": "NNTK", "detail": "NNTK" },
+        "distinctiveFeatures": { "value": "NNTK", "detail": "NNTK" },
+        "healthCondition": { "value": "NNTK", "detail": "NNTK" }
+      },
+      "personality": {
+        "coreType": { "value": "NNTK", "detail": "NNTK" },
+        "coreTraits": { "value": "NNTK", "detail": "NNTK" },
+        "moralValues": { "value": "NNTK", "detail": "NNTK" },
+        "desires": { "value": "NNTK", "detail": "NNTK" },
+        "weaknesses": { "value": "NNTK", "detail": "NNTK" },
+        "temperament": { "value": "NNTK", "detail": "NNTK" },
+        "socialStyle": { "value": "NNTK", "detail": "NNTK" }
+      },
+      "backgroundStory": "A man who sought opportunity in the city but received lessons. Yet still pursues the dream of creating wonderful things — through stories and/or games.",
+      "characterPsychology": "NNTK",
+      "additionalInfo": "Currently a freelance web developer and graphic designer. Open for services upon request.",
+      "imageSrc": "/charImg/Arpie.png",
+      "thumbnailSrc": "/charImg/Arpie.png"
+    }
+  
+]

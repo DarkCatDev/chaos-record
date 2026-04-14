@@ -1,0 +1,23 @@
+.main {
+  min-height: 100vh;
+  background: var(--black);
+  color: var(--charcoal);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.twoColRight {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
