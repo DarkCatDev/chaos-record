@@ -17,10 +17,10 @@
      },
     "themeAndTone": {
       "genreSubType":          { "value": " Mythological Fantasy, Coming-of-Age, Urban Fantasy",        "detail": "Mediator type. Introspective, idealistic, and value-driven, guided by deep personal beliefs and emotions in decision-making." },
-      "themes":        { "value": "Idealist · Simple · Loyal", "detail": "Values authenticity and meaningful connections. Seeks to live by her principles, even when it's challenging." },
-      "coreMessage":       { "value": "⚖️ Pragmatic", "detail": "Believes outcomes justify methods within defined operational parameters. No ideological allegiance." },
-      "storyFocus":           { "value": "👨‍👩‍👧‍👦 Family",  "detail": "Seeks to protect and provide for her loved ones, even at great personal cost." },
-      "tone":       { "value": "Sanguine",  "detail": "Enthusiastic and sociable, often displaying a positive outlook and energy." },
+      "themes":        { "value": "Identity and belonging", "detail": "Explores the protagonist's journey to find her place in the world and understand her true self." },
+      "coreMessage":       { "value": "Self-worth", "detail": "You don't have to be what others expect you to be to still matter. Worthiness isn't inherited, it's lived through your choices, especially the hard ones." },
+      "storyFocus":           { "value": "Acceptance and self-actualization",  "detail": "The journey where she finds acceptance and realizes her true potential doesn't come from other but herself." },
+      "tone":       { "value": "Dark Comedy",  "detail": "The narrative maintains a primarily lighthearted and self-aware tone, with humor conveyed through Dea`s sarcastic perspective. It periodically shifts into more emotionally intense and serious territory. Comedy and grief are often interwoven, sometimes within the same passage, which contributes to the overall emotional depth and effectiveness of the story" },
       "narrativeType":       { "value": "Informal",    "detail": "Prefers casual interactions and open communication." }
     },
     "synopsis": " The daughter of Athena, but none of her divine gifts. \n Hunted, alone, and desperate, Medeana must outrun her past and survive a world that wants her dead.\n Gods are watching.\n Enemies are closing in.\n And destiny is far more dangerous than she ever imagined.",
