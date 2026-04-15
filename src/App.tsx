@@ -16,6 +16,12 @@ import Heroes from './pages/inner-page/vessels/char-section/HeroesViewer'
 // Existence Outlets
 import MapPage from './pages/map-page/MapPage'
 
+
+
+// Unfoldings Outlets
+import Saga from './pages/inner-page/unfoldings/Saga/Saga'
+
+
 function App() {
   return (
     <>
@@ -29,21 +35,21 @@ function App() {
 
 
 
-          <Route path="unfoldings" element={<Unfoldings />}>
-
+          <Route path="/unfoldings" element={<Unfoldings />}>
+            <Route index element={<Saga />}/>
           </Route> 
 
 
-          <Route path="vessels" element={<Vessels />}>
+          <Route path="/vessels" element={<Vessels />}>
             <Route index element={<Heroes />}/>
           </Route>   
 
 
-          <Route path="existence" element={<Existence />}>
+          <Route path="/existence" element={<Existence />}>
             <Route index element={<MapPage />}/>
           </Route>
 
-          <Route path="codex" element={<Codex />}>
+          <Route path="/codex" element={<Codex />}>
           
           </Route>
         </Routes>

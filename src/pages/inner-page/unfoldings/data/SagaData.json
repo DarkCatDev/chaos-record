@@ -1,0 +1,33 @@
+[
+  {
+    "id": "001",
+    "name": "Pseudo Athena ",
+    "subtitle": "Redacted Timeline",
+    "language": "English",
+    "author": "Yaj Imagination",
+    "format": "Glaukopis Spear / Aegis Shield",
+    "genres": ["Fantasy" , "Adventure" ],
+    "bookDetails": {
+      "publicationDate":               { "value": "Feb. 18, 2026",        "detail": "Latest update of the book." },
+      "Publisher":    { "value": "The Arpie Project",  "detail": "Self-published. Available on Amazon marketplace." },
+      "pageCount":          { "value": "211 pages",    "detail": "Including the front page, table of contents, and appendices." },
+      "isbn":          { "value": "N/A",    "detail": "First book ever made. Not registered." },
+      "series":         { "value": "Medeana Asperse", "detail": "A series of fantasy novels set in the world of Medeana Asperse." },
+      "edition":       { "value": "2nd Edition",  "detail": "Updated. However, there will be a revamp for the book." }
+     },
+    "themeAndTone": {
+      "genreSubType":          { "value": " Mythological Fantasy, Coming-of-Age, Urban Fantasy",        "detail": "Mediator type. Introspective, idealistic, and value-driven, guided by deep personal beliefs and emotions in decision-making." },
+      "themes":        { "value": "Idealist · Simple · Loyal", "detail": "Values authenticity and meaningful connections. Seeks to live by her principles, even when it's challenging." },
+      "coreMessage":       { "value": "⚖️ Pragmatic", "detail": "Believes outcomes justify methods within defined operational parameters. No ideological allegiance." },
+      "storyFocus":           { "value": "👨‍👩‍👧‍👦 Family",  "detail": "Seeks to protect and provide for her loved ones, even at great personal cost." },
+      "tone":       { "value": "Sanguine",  "detail": "Enthusiastic and sociable, often displaying a positive outlook and energy." },
+      "narrativeType":       { "value": "Informal",    "detail": "Prefers casual interactions and open communication." }
+    },
+    "synopsis": " The daughter of Athena, but none of her divine gifts. \n Hunted, alone, and desperate, Medeana must outrun her past and survive a world that wants her dead.\n Gods are watching.\n Enemies are closing in.\n And destiny is far more dangerous than she ever imagined.",
+    "authorsInsight": " This needs further revision and editing. But I'll leave it published for now. I want to share the story as soon as possible, and I want to see how readers will react to it. After a couple of readers review on my end, I decided to change and revise the original edition. I'll be posting the revised/revamped version soon.",
+    "notes": " After a couple of readers review on my end, I decided to change and revise the original edition. I'll be posting the revised/revamped version soon.",
+    "imageSrc": "/bookImg/book1.jpg",
+    "thumbnailSrc": "/bookImg/book1.jpg"
+  }
+  
+]

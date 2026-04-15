@@ -1,0 +1,24 @@
+.tabButton{
+    display: inline-block;
+    padding: 12px 36px;
+    border: 4px ridge rgba(122, 114, 106, 0.3);
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blush);
+    transition: all 0.3s ease;
+    
+    border-radius: 12px;
+}
+
+
+.nav {
+    inset: 0 0 auto 0;
+    height: 14vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    align-content: center;
+    background: transparent;
+}

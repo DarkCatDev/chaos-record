@@ -1,0 +1,445 @@
+/* ─── RecordViewer.module.css ─────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@400;500;600;700&display=swap');
+
+/* ── Tokens ── */
+:root {
+  --bg:          #1a1c1e;
+  --surface:     #22252a;
+  --surface-alt: #2a2e35;
+  --border:      #3a3f4a;
+  --accent:      #e8a020;
+  --accent-dim:  rgba(232, 160, 32, 0.15);
+  --text-hi:     #edeef0;
+  --text-mid:    #9aa0ad;
+  --text-lo:     #5c6270;
+  --mono:        'Share Tech Mono', monospace;
+  --sans:        'Barlow', sans-serif;
+  --radius:      4px;
+  --gap:         12px;
+}
+
+/* ── Wrapper ── */
+.wrapper {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text-hi);
+  min-height: 100vh;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* ── Optional title ── */
+.title {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 16px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Root layout: [detail panel] [gallery sidebar] ── */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: var(--gap);
+  align-items: start;
+}
+
+/* ══════════════════════════════════════════════════
+   DETAIL PANEL
+══════════════════════════════════════════════════ */
+.detail {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--gap);
+  align-items: start;
+}
+
+/* ── Detail Left ── */
+.detailLeft {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.imageBox {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-alt);
+}
+
+.imagePlaceholderText {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-lo);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.basicInfo {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.entryName {
+  font-family: var(--sans);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-hi);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.genre {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid rgba(232, 160, 32, 0.3);
+  border-radius: 2px;
+  padding: 2px 6px;
+}
+
+.metaItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 0;
+  padding: 5px 0;
+  border-top: 1px solid var(--border);
+  gap: 8px;
+}
+
+.metaLabel {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-lo);
+  flex-shrink: 0;
+}
+
+.metaValue {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-hi);
+  text-align: right;
+}
+
+/* ── Detail Right ── */
+.detailRight {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.sectionRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+}
+
+.sectionBox,
+.sectionBoxFull {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-sizing: border-box;
+}
+
+.sectionBoxFull {
+  width: 100%;
+}
+
+.sectionLabel {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 10px 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sectionText {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--text-mid);
+  margin: 0;
+}
+
+/* ══════════════════════════════════════════════════
+   TRAIT GRID  (Physical Appearance / Personality)
+══════════════════════════════════════════════════ */
+
+.traitGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Each row: [label · · · · chip] */
+.chipRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.chipRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.chipLabel {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-lo);
+  flex-shrink: 0;
+  min-width: 76px;
+}
+
+/* Wrapper: positions the chip + floating tooltip */
+.chipWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.chip {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-hi);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 2px 8px;
+  cursor: default;
+  white-space: nowrap;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.chipWrapper:hover .chip {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+/* ── Tooltip ── */
+.tooltip {
+  position: absolute;
+  /* Default: float to the LEFT of the chip */
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 200;
+  pointer-events: none;
+  animation: tooltipIn 0.12s ease forwards;
+}
+
+@keyframes tooltipIn {
+  from { opacity: 0; transform: translateY(-50%) translateX(4px); }
+  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+.tooltipText {
+  display: block;
+  position: relative;
+  background: #0e1012;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--text-mid);
+  width: 220px;
+  white-space: normal;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+}
+
+/* Arrow: points RIGHT toward the chip */
+.tooltipText::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 5px solid transparent;
+  border-left-color: var(--accent);
+}
+
+/* ══════════════════════════════════════════════════
+   GALLERY SIDEBAR
+══════════════════════════════════════════════════ */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 140px);
+  gap: 10px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  background: var(--surface-alt);
+}
+
+.cardActive {
+  border-color: var(--accent) !important;
+  background: var(--accent-dim) !important;
+}
+
+.cardImage {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 2px;
+  display: block;
+}
+
+.cardImagePlaceholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--surface-alt);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardImagePlaceholderText {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text-lo);
+  letter-spacing: 0.1em;
+}
+
+.cardName {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-mid);
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.cardActive .cardName {
+  color: var(--accent);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .gallery {
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: static;
+
+  }
+  .card {
+    width: 120px;
+    flex-shrink: 0;
+  }
+  /* On narrow screens flip tooltip to the right */
+  .tooltip {
+    right: auto;
+    left: calc(100% + 10px);
+    animation: tooltipInRight 0.12s ease forwards;
+  }
+  @keyframes tooltipInRight {
+    from { opacity: 0; transform: translateY(-50%) translateX(-4px); }
+    to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+  }
+  .tooltipText::after {
+    right: auto;
+    left: -6px;
+    border-left-color: transparent;
+    border-right-color: var(--accent);
+  }
+}
+
+@media (max-width: 768px) {
+  .detail {
+    grid-template-columns: 1fr;
+  }
+  .imageBox {
+    aspect-ratio: 16 / 9;
+  }
+  .sectionRow {
+    grid-template-columns: 1fr;
+  }
+}
